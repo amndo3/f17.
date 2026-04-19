@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FARIS - KAMAL</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a1a5a 0%, #060131 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(34, 22, 150, 0.616);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        .title {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+        }
+
+        .social-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .social-link {
+            width: 100px;
+            height: 100px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 2rem;
+            color: rgb(255, 251, 251);
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(8, 226, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .social-link:hover::before {
+            left: 100%;
+        }
+
+        .social-link:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        
+
+        /* ألوان المنصات */
+        .kick { background: linear-gradient(45deg, #10c23c, #134915); }
+        .tiktok { background: linear-gradient(45deg, #000000, #4b4747); }
+        .youtube { background: linear-gradient(45deg, #701515, #cc0000); }
+        .x { background: linear-gradient(45deg, #000000, #39464e); }
+        .discord { background: linear-gradient(45deg, #5865f2, #4752c4); }
+
+        .social-link i {
+            z-index: 2;
+            position: relative;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+                margin: 10px;
+            }
+            
+            .title {
+                font-size: 2rem;
+            }
+            
+            .social-link {
+                width: 70px;
+                height: 70px;
+                font-size: 1.8rem;
+            }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            1% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+      
+        <p class="subtitle">تابعني في  منصات التواصل الاجتماعي </p> 
+        
+        <div class="social-links">
+            <a href="https://kick.com/fari_s17" class="social-link kick" target="_blank" rel="noopener noreferrer" title="Kick">
+                <i class="fas fa-gamepad"></i>
+            <img src="Kick Logo.svg" alt="Logo kick" width="100" height="24" >  </a>
+            
+            <a href="https://www.tiktok.com/@faris_kamal_1" class="social-link tiktok" target="_blank" rel="noopener noreferrer" title="TikTok">
+                <i class="fab fa-tiktok"></i>
+            </a>
+            
+            <a href="https://www.youtube.com/@Faris_kamal" class="social-link youtube" target="_blank" rel="noopener noreferrer" title="YouTube">
+                <i class="fab fa-youtube"></i>
+            </a>
+            
+            <a href="https://x.com/farisxxl" class="social-link x" target="_blank" rel="noopener noreferrer" title="X (Twitter)">
+                <i class="fab fa-x-twitter"></i>
+          <img src="svgexport-1.svg" width="50" height="30" > </a>
+
+            
+            <a href="https://discord.gg/YOUR_SERVER" class="social-link discord" target="_blank" rel="noopener noreferrer" title="Discord">
+                <i class="fab fa-discord"></i>
+                                              </a>
+        </div>
+    </div>
+
+    <script>
+        // تأثير تموج عند الضغط
+        document.querySelectorAll('.social-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.cssText = `
+                    position: absolute;
+                    width: ${size}px;
+                    height: ${size}px;
+                    left: ${x}px;
+                    top: ${y}px;
+                    background: rgba(255,255,255,0.6);
+                    border-radius: 50%;
+                    transform: scale(0);
+                    animation: ripple 0.6s linear;
+                    pointer-events: none;
+                `;
+                
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // إضافة رسالة ترحيب
+        setTimeout(() => {
+            const title = document.querySelector ('.title');
+            title.textContent = 'يا هلا وسهلا ';
+            setTimeout(() => {
+                 title.textContent = 'تابعني';
+            }, 2000);
+        }, 500);
+    </script>
+
+    <style>
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+    </style>
+
+
+
+<img src="fariss_logo (1).svg" width="200"
+ 
+
+
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إحصائيات البث المباشر</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://kick.com/fari_s17" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #251677 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* المستطيل الرئيسي ✨ */
+        .live-stats-card {
+            background: hsl(249, 78%, 25%);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 35px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 
+                0 25px 50px rgba(0,0,0,0.2),
+                0 0 0 1px rgba(255,255,255,0.3);
+            border: 1px solid rgba(255,255,255,0.2);
+            position: relative;
+            overflow: hidden;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        /* تأثير الوميض الحي للبث المباشر 🔴 */
+        .live-indicator {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            width: 20px;
+            height: 20px;
+            background: #a31010;
+            border-radius: 50%;
+            box-shadow: 0 0 20px #020101;
+            animation: pulse 2s infinite;
+        }
+
+        .live-indicator::after {
+            content: 'مباشر';
+            position: absolute;
+            top: 28px;
+            left: -5px;
+            color: #6d0000;
+            font-size: 12px;
+            font-weight: 700;
+            background: rgba(255,68,68,0.1);
+            padding: 2px 8px;
+            border-radius: 10px;
+            white-space: nowrap;
+        }
+
+        /* العنوان الرئيسي 👑 */
+        .stats-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #8da7c2;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        /* حاوية الإحصائيات الرئيسية */
+        .stats-container {
+            display: flex;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        /* كل إحصائية منفصلة 📊 */
+        .stat-item {
+            flex: 1;
+            text-align: center;
+            padding: 25px 15px;
+            background: linear-gradient(135deg, #1932ad 0%, #000000 100%);
+            border-radius: 20px;
+            color: rgb(240, 232, 232);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .stat-item:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.4);
+        }
+
+        /* الأيقونة الكبيرة */
+        .stat-icon {
+            font-size: 3.5rem;
+            margin-bottom: 12px;
+            filter: drop-shadow(0 4px 8px rgba(12, 115, 141, 0.3));
+        }
+
+        /* الرقم الكبير 🔥 */
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 5px;
+            background: linear-gradient(45deg, #fff 0%, #f0f8ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+        }
+
+        /* النص الوصفي */
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.95;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* شريط التقدم الجميل 📈 */
+        .progress-section {
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .progress-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .progress-label {
+            font-weight: 600;
+            color: #2c3e50;
+            min-width: 80px;
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 10px;
+            background: rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #575c75, #3e64ce, #2825d3);
+            border-radius: 10px;
+            transition: width 2s ease;
+            position: relative;
+        }
+
+        .progress-fill::after {
+            content: attr(data-percent);
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        /* زر التحديث 🔔 */
+        .refresh-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #858383 0%, #3f3232 100%);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .refresh-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(255,107,107,0.4);
+        }
+
+        /* الرسوم المتحركة ✨ */
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255,68,68,0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(255,68,68,0); }
+            100% { box-shadow: 0 0 0 0 rgba(255,68,68,0); }
+        }
+
+        @keyframes countUp {
+            from { transform: scale(0.5); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .stat-number {
+            animation: countUp 1s ease-out;
+        }
+
+        /* Responsive 📱 */
+        @media (max-width: 480px) {
+            .live-stats-card {
+                padding: 25px 20px;
+                margin: 10px;
+            }
+            
+            .stats-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
+            }
+            
+            .stats-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- المستطيل الرئيسي -->
+    <div class="live-stats-card">
+        <!-- مؤشر البث المباشر -->
+        <div class="live-indicator"></div>
+        
+        <!-- العنوان -->
+        <h2 class="stats-title">
+            <i class="fas fa-broadcast-tower"></i>
+            إحصائيات البث المباشر
+        </h2>
+
+        <!-- الإحصائيات الرئيسية -->
+        <div class="stats-container">
+            <!-- عدد المشاهدين -->
+            <div class="stat-item">
+                <i class="fas fa-eye stat-icon"></i>
+                <span class="stat-number" id="viewers">80</span>
+                <div class="stat-label">مشاهد الآن</div>
+            </div>
+
+            <!-- عدد المتابعين -->
+            <div class="stat-item">
+                <i class="fas fa-users stat-icon"></i>
+                <span class="stat-number" id="followers">517</span>
+                <div class="stat-label">المتابعين</div>
+            </div>
+        </div>
+
+        <!-- شرائط التقدم -->
+        <div class="progress-section">
+            <div class="progress-item">
+                <span class="progress-label">التفاعل :</span>
+                <div class="progress-bar">
+                    <div class="progress-fill" data-percent="87%" style="width: 78%;"></div>
+                </div>
+            </div>
+            <div class="progress-item">
+                <span class="progress-label">الإعجابات:</span>
+                <div class="progress-bar">
+                    <div class="progress-fill" data-percent="23%" style="width: 23%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- زر التحديث -->
+        <button class="refresh-btn" onclick="updateStats()">
+            <i class="fas fa-sync-alt"></i> تحديث
+        </button>
+    </div>
+
+    <script>
+        // تحديث تلقائي كل 10 ثواني
+        setInterval(updateStats, 10000);
+
+        // دالة تحديث الإحصائيات
+        function updateStats() {
+            // تحديث المشاهدين (+/- عشوائي)
+            const viewers = document.getElementById('viewers');
+            const currentViewers = parseInt(viewers.textContent.replace(/,/g, ''));
+            const change = Math.floor(Math.random() * 200) - 100;
+            const newViewers = Math.max(0, currentViewers + change);
+            viewers.textContent = newViewers.toLocaleString();
+
+            // تحديث المتابعين (يزيد فقط)
+            const followers = document.getElementById('followers');
+            const currentFollowers = parseInt(followers.textContent.replace(/,/g, ''));
+            if (Math.random() > 0.7) {
+                const newFollowers = currentFollowers + Math.floor(Math.random() * 50) + 10;
+                followers.textContent = newFollowers.toLocaleString();
+            }
+
+            // تأثير الاهتزاز
+            viewers.style.animation = 'none';
+            followers.style.animation = 'none';
+            setTimeout(() => {
+                viewers.style.animation = 'countUp 0.5s ease-out';
+                followers.style.animation = 'countUp 0.5s ease-out';
+            }, 100);
+        }
+
+        // تأثير التمرير
+        window.addEventListener('scroll', () => {
+            document.querySelector('.live-stats-card').style.transform = 
+                `translateY(${window.scrollY * 0.1}px)`;
+        });
+    </script>
+
+
+
+
+ <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تأثير ماوس</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            background: linear-gradient(45deg, #dad0d0, #150d7c, #08073a48, #0d1a96);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            cursor: none;
+            overflow: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Cursor مخصص */
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        .cursor-follower {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transition: all 0.3s ease;
+        }
+
+        .hover {
+            transform: scale(2) !important;
+        }
+
+        .click {
+            background: rgba(255, 107, 107, 0.8) !important;
+            transform: scale(1.5);
+        }
+
+        /* عناصر تفاعلية */
+        .card {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            cursor: none;
+        }
+
+        .card:hover {
+            transform: translateY(-20px) scale(1.05);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .card:nth-child(1) { top: 20%; left: 20%; }
+        .card:nth-child(2) { top: 40%; right: 20%; }
+        .card:nth-child(3) { bottom: 20%; left: 20%; }
+        .card:nth-child(4) { bottom: 20%; right: 20%; }
+
+        h1 {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-family: 'Arial', sans-serif;
+            font-size: 3rem;
+            text-align: center;
+            z-index: 10;
+        }
+    </style>
+
+    
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-follower" id="cursorFollower"></div>
+
+    <script>
+        const cursor = document.getElementById('cursor');
+        const cursorFollower = document.getElementById('cursorFollower');
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+        let followerX = 0, followerY = 0;
+
+        // تحريك الماوس
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        // تحديث موقع الـ cursor
+        function updateCursor() {
+            cursorX += (mouseX - cursorX) * 0.2;
+            cursorY += (mouseY - cursorY) * 0.2;
+            followerX += (mouseX - followerX) * 0.1;
+            followerY += (mouseY - followerY) * 0.1;
+
+            cursor.style.left = cursorX + 'px';
+            cursor.style.top = cursorY + 'px';
+            cursorFollower.style.left = followerX + 'px';
+            cursorFollower.style.top = followerY + 'px';
+
+            requestAnimationFrame(updateCursor);
+        }
+
+        // تأثيرات Hover
+        document.querySelectorAll('.card, h1').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.classList.add('hover');
+                cursorFollower.classList.add('hover');
+            });
+            
+            el.addEventListener('mouseleave', () => {
+                cursor.classList.remove('hover');
+                cursorFollower.classList.remove('hover');
+            });
+        });
+
+        // تأثير الضغط
+        document.addEventListener('mousedown', () => {
+            cursor.classList.add('click');
+        });
+
+        document.addEventListener('mouseup', () => {
+            cursor.classList.remove('click');
+        });
+
+        // بدء التحريك
+        updateCursor();
+    </script>
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>جزيئات الماوس</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-family: Arial, sans-serif;
+            font-size: 2.5rem;
+            text-align: center;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+    
+
+
+</body>
+</html>
