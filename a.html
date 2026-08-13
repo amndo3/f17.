@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABU6AMI | حسابات أبو طامي</title>
+    <!-- تضمين مكتبة FontAwesome لأيقونات المنصات -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            width: 100%;
+            min-height: 100vh;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            overflow-x: hidden;
+            background-color: #0d0a12; 
+            cursor: none; 
+        }
+
+        /* مؤشر الماوس المخصص */
+        .custom-cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #373ad4;
+            position: fixed;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            pointer-events: none; 
+            z-index: 9999;
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+        }
+
+        .custom-cursor-circle {
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            position: fixed;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transition: transform 0.1s cubic-bezier(0.25, 1, 0.5, 1), width 0.3s, height 0.3s, border-color 0.3s, background-color 0.3s;
+        }
+
+        body.hovered .custom-cursor-dot {
+            width: 6px;
+            height: 6px;
+            background-color: #fff;
+        }
+        body.hovered .custom-cursor-circle {
+            width: 55px;
+            height: 55px;
+            border-color: rgba(255, 255, 255, 0.8);
+            background-color: rgba(255, 255, 255, 0.05); 
+        }
+
+        /* الخلفية العامة */
+        .wrapper {
+            width: 100%;
+            min-height: 100vh;
+            background: linear-gradient(-45deg, #120024, #08031a, #1a0826, #050515);
+            background-size: 400% 400%;
+            animation: cozyGradient 15s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 80px 20px 40px 20px;
+            position: relative;
+        }
+
+        @keyframes cozyGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* زر تغيير اللغة أعلى اليسار */
+        .lang-switch-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            padding: 10px 18px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .lang-switch-btn:hover {
+            background: rgba(212, 175, 55, 0.2);
+            border-color: #d4af37;
+            color: #d4af37;
+            transform: translateY(-2px);
+        }
+
+        /* الحاوية الرئيسية للتخطيط */
+        .page-container {
+            display: flex;
+            width: 100%;
+            max-width: 950px;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        /* اللوحة الرئيسية للروابط */
+        .family-panel {
+            flex: 1;
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            background: rgba(255, 255, 255, 0.03); 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            border-radius: 32px;
+            padding: 40px 30px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), inset 0 1px 2px rgba(255, 255, 255, 0.15);
+            text-align: center;
+            animation: panelEntrance 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        @keyframes panelEntrance {
+            from { opacity: 0; transform: scale(0.95) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .family-title {
+            color: #ffffff;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 5px;
+            letter-spacing: 2px;
+            text-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .family-subtitle {
+            color: #d4af37;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            letter-spacing: 0.5px;
+        }
+
+        /* قسم العدادات الجانبية */
+        .stats-sidebar {
+            width: 220px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 28px;
+            padding: 20px 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            animation: panelEntrance 0.9s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 18px;
+            padding: 16px 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            background: rgba(255, 255, 255, 0.07);
+            border-color: rgba(212, 175, 55, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .stat-title {
+            font-size: 0.85rem;
+            color: #aaa;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .stat-value {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #ffffff;
+        }
+
+        /* شارة البث المباشر */
+        .live-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #aaa;
+            font-weight: 700;
+            transition: color 0.3s ease;
+        }
+
+        .live-badge.is-live {
+            color: #ff4757;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #888;
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
+        }
+
+        .live-badge.is-live .pulse-dot {
+            background-color: #ff4757;
+            box-shadow: 0 0 0 rgba(255, 71, 87, 0.7);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 71, 87, 0.7); }
+            70% { box-shadow: 0 0 0 8px rgba(255, 71, 87, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 71, 87, 0); }
+        }
+
+        /* شبكة الأزرار */
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* زر قنوات الأصدقاء */
+        .social-btn.friends-trigger {
+            grid-column: span 2;
+            background: rgba(212, 175, 55, 0.1);
+            border-color: rgba(212, 175, 55, 0.4);
+            color: #d4af37;
+            justify-content: flex-start;
+        }
+
+        .social-btn.friends-trigger:hover {
+            background: #d4af37;
+            color: #000000;
+            border-color: #f3e5ab;
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.5);
+        }
+
+        /* التصميم الموحد للأزرار */
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 12px 18px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+            user-select: none;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .social-btn i, .social-btn .kick-icon {
+            font-size: 1.3rem;
+            min-width: 26px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+
+        html[dir="rtl"] .social-btn i, 
+        html[dir="rtl"] .social-btn .kick-icon {
+            margin-left: 12px;
+        }
+
+        html[dir="ltr"] .social-btn i, 
+        html[dir="ltr"] .social-btn .kick-icon {
+            margin-right: 12px;
+        }
+
+        .kick-icon {
+            font-weight: 900;
+            font-style: normal;
+            font-family: sans-serif;
+            background: #53fc18;
+            color: #000;
+            font-size: 0.75rem !important;
+            padding: 2px 4px;
+            border-radius: 4px;
+            letter-spacing: -1px;
+            line-height: 1;
+        }
+
+        /* تأثيرات التحويم الأزرار */
+        .social-btn.tiktok:hover { background: #000000; border-color: #fe2c55; box-shadow: -3px 3px 15px rgba(254, 44, 85, 0.4), 3px -3px 15px rgba(37, 244, 238, 0.4); color: #fff; }
+        .social-btn.tiktok:hover i { color: #25f4ee; }
+        .social-btn.snapchat:hover { background: #FFFC00; border-color: #FFFC00; box-shadow: 0 0 20px rgba(255, 252, 0, 0.4); color: #000000; }
+        .social-btn.snapchat:hover i { color: #000000; }
+        .social-btn.twitch:hover { background: #9146FF; border-color: #a970ff; box-shadow: 0 0 20px rgba(145, 70, 255, 0.5); color: #ffffff; }
+        .social-btn.kick:hover { background: #53fc18; border-color: #53fc18; box-shadow: 0 0 20px rgba(83, 252, 24, 0.5); color: #000000; }
+        .social-btn.kick:hover .kick-icon { background: #000; color: #53fc18; }
+        .social-btn.discord:hover { background: #5865F2; border-color: #7983f5; box-shadow: 0 0 20px rgba(88, 101, 242, 0.5); color: #ffffff; }
+        .social-btn.whatsapp:hover { background: #25D366; border-color: #4ade80; box-shadow: 0 0 20px rgba(37, 211, 102, 0.5); color: #ffffff; }
+        .social-btn.twitter:hover { background: #000000; border-color: #ffffff; box-shadow: 0 0 20px rgba(255, 255, 255, 0.3); color: #ffffff; }
+        .social-btn.youtube:hover { background: #FF0000; border-color: #ff3333; box-shadow: 0 0 20px rgba(255, 0, 0, 0.5); color: #ffffff; }
+
+        .social-btn:hover { transform: translateY(-3px) scale(1.02); }
+        .social-btn:hover i { transform: scale(1.15) rotate(-5deg); }
+        .social-btn:active { transform: translateY(-1px) scale(0.99); }
+
+        /* نافذة قنوات الأصدقاء المنبثقة (Modal) */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .friends-modal {
+            width: 100%;
+            max-width: 450px;
+            background: rgba(18, 10, 30, 0.95);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 28px;
+            padding: 30px 25px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.9);
+            transform: scale(0.85);
+            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            position: relative;
+            text-align: center;
+        }
+
+        .modal-overlay.active .friends-modal {
+            transform: scale(1);
+        }
+
+        .close-modal-btn {
+            position: absolute;
+            top: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: #fff;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            transition: background 0.3s ease;
+        }
+
+        html[dir="rtl"] .close-modal-btn { left: 15px; }
+        html[dir="ltr"] .close-modal-btn { right: 15px; }
+
+        .close-modal-btn:hover {
+            background: rgba(255, 0, 0, 0.6);
+        }
+
+        .modal-title {
+            color: #d4af37;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .friends-channels-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .friend-channel-card {
+            padding: 15px 20px;
+            font-size: 1.05rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 18px;
+        }
+
+        @media (max-width: 768px) {
+            .page-container {
+                flex-direction: column-reverse;
+                align-items: center;
+            }
+            .stats-sidebar {
+                width: 100%;
+                flex-direction: row;
+            }
+            .stat-card {
+                flex: 1;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .links-grid {
+                grid-template-columns: 1fr;
+            }
+            .social-btn.friends-trigger {
+                grid-column: span 1;
+            }
+            .family-panel { padding: 30px 18px; }
+            .family-title { font-size: 2rem; }
+            .lang-switch-btn { top: 15px; left: 15px; padding: 8px 14px; font-size: 0.8rem; }
+            .stats-sidebar { flex-direction: column; }
+        }
+
+        @media (pointer: coarse) {
+            .custom-cursor-dot, .custom-cursor-circle { display: none; }
+            body, .social-btn, .lang-switch-btn, .close-modal-btn { cursor: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- مؤشر الماوس المخصص -->
+    <div class="custom-cursor-dot" id="cursorDot"></div>
+    <div class="custom-cursor-circle" id="cursorCircle"></div>
+
+    <!-- زر تحويل اللغة في أعلى اليسار -->
+    <button class="lang-switch-btn" id="langToggle">
+        <i class="fas fa-globe"></i>
+        <span id="langText">English</span>
+    </button>
+
+    <div class="wrapper">
+        <div class="page-container">
+            
+            <!-- قسم العدادات المباشرة والمتابعين -->
+            <div class="stats-sidebar">
+                <!-- عداد المتابعين -->
+                <div class="stat-card">
+                    <span class="stat-title">
+                        <i class="fas fa-users" style="color: #d4af37;"></i>
+                        <span id="txt-stat-followers">إجمالي المتابعين</span>
+                    </span>
+                    <span class="stat-value" id="followersCount">--</span>
+                </div>
+
+                <!-- عداد مشاهدين البث المباشر -->
+                <div class="stat-card">
+                    <span class="stat-title">
+                        <span class="live-badge" id="liveBadge">
+                            <span class="pulse-dot"></span>
+                            <span id="txt-stat-live">مباشر الآن</span>
+                        </span>
+                    </span>
+                    <span class="stat-value" id="liveViewersCount">--</span>
+                </div>
+            </div>
+
+            <!-- اللوحة الرئيسية لحسابات أبو طامي -->
+            <div class="family-panel">
+                <h1 class="family-title">ABU6AMI</h1>
+                <p class="family-subtitle" id="txt-subtitle">حياكم الله جميعاً في مجتمعنا</p>
+                
+                <!-- شبكة أزرار التواصل الرئيسي -->
+                <div class="links-grid" id="linksContainer">
+                    <button class="social-btn friends-trigger" id="openFriendsModal">
+                        <i class="fas fa-users"></i>
+                        <span id="txt-btn-friends">قنوات الأصدقاء</span>
+                    </button>
+
+                    <a href="https://www.tiktok.com/@abu6ami" target="_blank" class="social-btn tiktok"><i class="fab fa-tiktok"></i><span>TikTok</span></a>
+                    <a href="https://www.snapchat.com/@xhm70?share_id=ODdCNDg4&locale=ar_SA%40calendar%3Dgregorian" target="_blank" class="social-btn snapchat"><i class="fab fa-snapchat"></i><span>Snapchat</span></a>
+                    <a href="https://www.twitch.tv/abu6amii" target="_blank" class="social-btn twitch"><i class="fab fa-twitch"></i><span>Twitch</span></a>
+                    <a href="https://kick.com/abu6ami" target="_blank" class="social-btn kick"><span class="kick-icon">KICK</span><span id="txt-kick">منصة Kick</span></a>
+                    <a href="https://discord.com/invite/23NayuwkqS" target="_blank" class="social-btn discord"><i class="fab fa-discord"></i><span>Discord</span></a>
+                    <a href="https://whatsapp.com/channel/0029VbARL0w4yltIlO22vo2r" target="_blank" class="social-btn whatsapp"><i class="fab fa-whatsapp"></i><span id="txt-whatsapp">قناة الواتساب</span></a>
+                    <a href="https://twitter.com/ABU_6AMI" target="_blank" class="social-btn twitter"><i class="fab fa-x-twitter"></i><span id="txt-twitter">تويتر (X)</span></a>
+                    <a href="https://www.youtube.com/channel/UC2eB7kBk_za9OZg-2dGVKoA" target="_blank" class="social-btn youtube"><i class="fab fa-youtube"></i><span id="txt-youtube">قناة اليوتيوب</span></a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- نافذة قنوات الأصدقاء -->
+    <div class="modal-overlay" id="friendsModal">
+        <div class="friends-modal">
+            <button class="close-modal-btn" id="closeFriendsModal"><i class="fas fa-times"></i></button>
+            <div class="modal-title">
+                <i class="fas fa-users"></i>
+                <span id="txt-modal-title">قنوات الأصدقاء</span>
+            </div>
+            
+            <div class="friends-channels-container">
+                <a href="https://kick.com/vfernando" target="_blank" class="social-btn kick friend-channel-card">
+                    <span class="kick-icon">KICK</span>
+                    <span class="txt-friend1">vfernando</span>
+                </a>
+              
+        </div>
+    </div>
+
+    <!-- هنا تم ربط ملف الجافا سكريبت a.js -->
+    <script src="a.js"></script>
+</body>
+</html>
